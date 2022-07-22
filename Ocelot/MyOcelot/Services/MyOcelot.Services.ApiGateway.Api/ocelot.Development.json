@@ -34,7 +34,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 5000
         }
       ],
       "UpstreamPathTemplate": "/api/login",
