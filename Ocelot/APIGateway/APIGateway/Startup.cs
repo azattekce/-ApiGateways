@@ -32,8 +32,18 @@ namespace APIGateway
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
+            //app.U();
+            //app.UseSwaggerUI(options =>
+            //{
+            //    options.DocExpansion(DocExpansion.None);
 
+            //    // build a swagger endpoint for each discovered API version.
+            //    foreach (var description in provider.ApiVersionDescriptions)
+            //    {
+            //        options.RoutePrefix = "swagger";
+            //        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+            //    }
+            //});
             app.UseRouting();
 
             app.UseAuthorization();
