@@ -9,17 +9,18 @@ EXPOSE 80
 EXPOSE 443
 
 
+
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Azat.ApiGateway.csproj", "src/Azat.ApiGateway.csproj"]
+COPY ["./Azat.ApiGateway/Azat.ApiGateway.csproj", "src/Azat.ApiGateway.csproj"]
 RUN dotnet restore "src/Azat.ApiGateway.csproj"
 COPY . .
-RUN dotnet build "Azat.ApiGateway.csproj" -c Release -o /app/build
+RUN dotnet build "./Azat.ApiGateway/Azat.ApiGateway.csproj" -c Release -o /app/azatapi/build
 
 FROM build AS publish
-RUN dotnet publish "Azat.ApiGateway.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Azat.ApiGateway/Azat.ApiGateway.csproj" -c Release -o /app/azatapi/publish /p:UseAppHost=false
 
 FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
+WORKDIR /app/azatapp
+COPY --from=publish /app/azatapi/publish .
 ENTRYPOINT ["dotnet", "Azat.ApiGateway.dll"]
