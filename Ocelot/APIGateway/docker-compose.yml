@@ -1,18 +1,18 @@
-﻿version: '1.0'
+﻿version: '1.1'
 services:
   azatapi:
-    image: "azattekce/azatapi:v3"
+    image: "azattekce/azatapi6_img"
     build:
       context: .
-      dockerfile: /Azat.ApiGateway/Dockerfile
+      dockerfile: ./Azat.ApiGateway/Dockerfile
     container_name: Azatapi
     hostname: Azatapi    
     restart: always
     ports:
-      - 7124:80
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${Env}
+      - 5004:80
+    #environment:
+    #  - ASPNETCORE_ENVIRONMENT=${Env}
     #dns:
     #  - 8.8.8.8
-    extra_hosts:
-      - "host.docker.internal:host-azatapi"
+    #extra_hosts:
+     # - "host.docker.internal:host-azatapinew"
