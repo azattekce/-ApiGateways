@@ -1,7 +1,7 @@
 ﻿version: '1.1'
 services:
   azatapi:
-    image: "azattekce/azatapi6_img"
+    #image: "azattekce/azatapi5_img"
     build:
       context: .
       dockerfile: ./Azat.ApiGateway/Dockerfile
@@ -10,6 +10,9 @@ services:
     restart: always
     ports:
       - 5004:80
+    volumes:
+      - /app/azatapi
+      - .:/app/azatapi        
     #environment:
     #  - ASPNETCORE_ENVIRONMENT=${Env}
     #dns:
