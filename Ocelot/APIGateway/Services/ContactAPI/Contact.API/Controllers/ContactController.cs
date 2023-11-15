@@ -1,6 +1,7 @@
 ﻿using Contact.API.Infrustructure;
 using Contact.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Contact.API.Controllers
 {
@@ -14,6 +15,13 @@ namespace Contact.API.Controllers
         {
             _contactService = contactService;
         }
+
+        [HttpGet("GetAll")]
+        public List<ContactDTO> GetAll()
+        {
+            return _contactService.GetContacts();
+        }
+
 
         [HttpGet("{id}")]
         public ContactDTO Get(int id)

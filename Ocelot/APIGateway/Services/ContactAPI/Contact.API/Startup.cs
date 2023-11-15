@@ -1,10 +1,13 @@
 using Contact.API.Infrustructure;
 using Contact.API.Services;
+using Core.WebAPI.Extensions.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Contact.API
 {
@@ -22,6 +25,26 @@ namespace Contact.API
         {
             services.AddControllers();
 
+            services.AddSwaggerGen(opt =>
+            {
+                opt.AddSecurityDefinition(
+                    name: "Bearer",
+                    securityScheme: new OpenApiSecurityScheme {
+                        Name = "Authorization",
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "Bearer",
+                        BearerFormat = "JWT",
+                        In = ParameterLocation.Header,
+                        Description =
+                            "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer YOUR_TOKEN\". \r\n\r\n"
+                            + "`Enter your token in the text input below.`"
+                    }
+                );
+                opt.OperationFilter<BearerSecurityRequirementOperationFilter>();
+            });
+
+
+
             services.AddScoped<IContactService, ContactService>();
         }
 
@@ -30,12 +53,20 @@ namespace Contact.API
         {
             if (env.IsDevelopment())
             {
+              
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(opt =>
+            {
+                opt.DocExpansion(DocExpansion.None);
+            });
 
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
 
             app.UseAuthorization();
 

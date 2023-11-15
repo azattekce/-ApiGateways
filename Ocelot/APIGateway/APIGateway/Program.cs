@@ -19,10 +19,10 @@ namespace APIGateway
                 config.AddJsonFile("ocelot.json");
             })
 
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseUrls("http://*:9002");
-                    webBuilder.UseStartup<Startup>();
-                });
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseUrls("http://*:9002");
+                webBuilder.UseStartup<Startup>();
+            });
     }
 }
